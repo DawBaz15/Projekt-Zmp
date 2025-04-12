@@ -10,9 +10,7 @@ class Kernel extends ConsoleKernel
 {
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(function () {
-            Log::info('Log test');
-        })->dailyAt('18:22')->timezone('Europe/Warsaw');
+
     }
 
     protected function commands()

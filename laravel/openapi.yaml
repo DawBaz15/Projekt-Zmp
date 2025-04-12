@@ -1,1 +1,106 @@
 openapi: 3.0.0
+info:
+  title: Warehouse API
+  description: Warehouse API
+  version: 1.0
+
+servers:
+  - url: https://127.0.0.1/api
+    description: Docker
+
+tags:
+  - name: "User"
+  - name: "Admin"
+  - name: "Item"
+  - name: "Stock"
+
+paths:
+  /user/login:
+    post:
+      summary: Returns a login token for user accounts
+      tags:
+        - "User"
+
+  /user/reset:
+    put:
+      summary: Resets user's password
+      tags:
+        - "User"
+
+  /user/index:
+    get:
+      summary: Lists all users
+      tags:
+        - "User"
+
+  /user/create:
+    post:
+      summary: Creates a new user
+      tags:
+        - "User"
+
+  /user/modify:
+    post:
+      summary: Modifies an existing user
+      tags:
+        - "User"
+
+  /admin/login:
+    post:
+      summary: Returns a login token for admin accounts
+      tags:
+        - "Admin"
+
+  /admin/reset:
+    put:
+      summary: Resets admin's password
+      tags:
+        - "Admin"
+
+  /admin/notification:
+    get:
+      summary: Pushes a notification to admin
+      tags:
+        - "Admin"
+
+  /item/create:
+    post:
+      summary: Creates a new item
+      tags:
+        - "Item"
+
+  /item/modify:
+    post:
+      summary: Modifies an existing item
+      tags:
+        - "Item"
+
+  /item/index:
+    get:
+      summary: Lists all items
+      tags:
+        - "Item"
+
+  /stock/add:
+    post:
+      summary: Add items to stock
+      tags:
+        - "Stock"
+
+  /stock/locate:
+    get:
+      summary: Retrieve physical location of items in stock
+      tags:
+        - "Stock"
+
+  /stock/index:
+    get:
+      summary: Lists all available stock
+      tags:
+        - "Stock"
+
+  /stock/modify:
+    post:
+      summary: Modifies existing stock
+      tags:
+        - "Stock"
