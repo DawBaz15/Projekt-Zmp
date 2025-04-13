@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use function Laravel\Prompts\select;
 
 class UserController extends Controller {
     public function login(Request $request) {
@@ -17,11 +16,25 @@ class UserController extends Controller {
             'message' => 'User reset password'
         ], 200);
     }
-    public function index() {
+
+    public function index(Request $request) {
+        $token = $request->header('Token');
+        if (isset($token)) {
+            if (TokenChecker::getAdminID($token)) {
+                return response([
+                    'message' => 'Array fetched',
+                    'array' => User::all()
+                ], 200);
+            }
+            return response([
+                'message' => 'Bad token'
+            ], 401);
+        }
         return response([
-            'message' => 'User index'
-        ], 200);
+            'message' => 'Bad request'
+        ], 400);
     }
+
     public function create(Request $request) {
         return response([
             'message' => 'User create'

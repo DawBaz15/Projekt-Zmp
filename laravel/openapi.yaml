@@ -5,102 +5,486 @@ info:
   version: 1.0
 
 servers:
-  - url: https://127.0.0.1/api
+  - url: http://localhost:8080/api
     description: Docker
 
 tags:
   - name: "User"
+    description: "Every endpoint regarding the user table"
   - name: "Admin"
+    description: "Every endpoint regarding the admin table"
   - name: "Item"
+    description: "Every endpoint regarding the item table"
   - name: "Stock"
+    description: "Every endpoint regarding the stock table"
+  - name: "Web/Desktop app"
+    description: "Grouped endpoints that should be used in the web and desktop apps"
+  - name: "Mobile app"
+    description: "Grouped endpoints that should be used in the mobile app"
 
 paths:
   /user/login:
     post:
       summary: Returns a login token for user accounts
+      parameters:
+        - in: header
+          name: Email
+          required: true
+          schema:
+            type: string
+          description: Email given by user
+        - in: header
+          name: Password
+          required: true
+          schema:
+            type: string
+          description: Password given by user
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Account token used for authorization
+        "401":
+          description: Bad login
+        "403":
+          description: Account is not active
       tags:
         - "User"
+        - "Mobile app"
 
   /user/reset:
     put:
       summary: Resets user's password
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          schema:
+            type: string
+          description: User token for authorization
+      responses:
+        "200":
+          description: Reset initiated
+        "401":
+          description: Bad token
       tags:
         - "User"
+        - "Mobile app"
 
   /user/index:
     get:
-      summary: Lists all users
+      summary: Fetch all users details
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          schema:
+            type: string
+          description: Admin token for authorization
+      responses:
+        "200":
+          description: Array fetched
+
+            // Add structure details later
+
+        "401":
+          description: Bad token
       tags:
         - "User"
+        - "Web/Desktop app"
 
   /user/create:
     post:
       summary: Creates a new user
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          schema:
+            type: string
+          description: Admin token for authorization
+        - in: header
+          name: Email
+          required: true
+          schema:
+            type: string
+          description: User's email
+        - in: header
+          name: Phone
+          required: true
+          schema:
+            type: string
+          description: User's phone number
+        - in: header
+          name: Name
+          required: true
+          schema:
+            type: string
+          description: User's name
+        - in: header
+          name: Surname
+          required: true
+          schema:
+            type: string
+          description: User's surname
+        - in: header
+          name: Password
+          required: true
+          schema:
+            type: string
+          description: User's temporary password
+      responses:
+        "200":
+          description: User created
+        "400":
+          description: Bad request
+        "401":
+          description: Bad token
       tags:
         - "User"
+        - "Web/Desktop app"
 
   /user/modify:
-    post:
+    put:
       summary: Modifies an existing user
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          schema:
+            type: string
+          description: Admin token for authorization
+        - in: header
+          name: ID
+          required: true
+          schema:
+            type: integer
+          description: ID of user to modify
+        - in: header
+          name: Email
+          required: false
+          schema:
+            type: string
+          description: New email of user, if empty then it stays the same
+        - in: header
+          name: Phone
+          required: false
+          schema:
+            type: string
+          description: New phone number of user, if empty then it stays the same
+        - in: header
+          name: Name
+          required: false
+          schema:
+            type: string
+          description: New name of user, if empty then it stays the same
+        - in: header
+          name: Surname
+          required: false
+          schema:
+            type: string
+          description: New surname of user, if empty then it stays the same
+      responses:
+        "200":
+          description: User modified
+        "400":
+          description: Bad request
+        "401":
+          description: Bad token
       tags:
         - "User"
+        - "Web/Desktop app"
 
   /admin/login:
     post:
       summary: Returns a login token for admin accounts
+      parameters:
+        - in: header
+          name: Email
+          required: true
+          schema:
+            type: string
+          description: Email given by user
+        - in: header
+          name: Password
+          required: true
+          schema:
+            type: string
+          description: Password given by user
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Account token used for authorization
+        "401":
+          description: Bad login
+        "403":
+          description: Account is not active
       tags:
         - "Admin"
+        - "Web/Desktop app"
 
   /admin/reset:
     put:
       summary: Resets admin's password
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          schema:
+            type: string
+          description: Admin token for authorization
+      responses:
+        "200":
+          description: Reset initiated
+        "401":
+          description: Bad token
       tags:
         - "Admin"
+        - "Web/Desktop app"
 
   /admin/notification:
     get:
       summary: Pushes a notification to admin
       tags:
         - "Admin"
+        - "Web/Desktop app"
 
   /item/create:
     post:
       summary: Creates a new item
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          schema:
+            type: string
+          description: Admin token for authorization
+        - in: header
+          name: Name
+          required: true
+          schema:
+            type: string
+          description: Name of new item
+      responses:
+        "200":
+          description: Item created
+        "400":
+          description: Bad request
+        "401":
+          description: Bad token
       tags:
         - "Item"
+        - "Web/Desktop app"
 
   /item/modify:
-    post:
+    put:
       summary: Modifies an existing item
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          schema:
+            type: string
+          description: Admin token for authorization
+        - in: header
+          name: ID
+          required: true
+          schema:
+            type: integer
+          description: ID of modified item
+        - in: header
+          name: Name
+          required: false
+          schema:
+            type: string
+          description: New name for item, if empty then it stays the same
+      responses:
+        "200":
+          description: Item modified
+        "400":
+          description: Bad request
+        "401":
+          description: Bad token
       tags:
         - "Item"
+        - "Web/Desktop app"
 
   /item/index:
     get:
       summary: Lists all items
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          schema:
+            type: string
+          description: User or admin token for authorization
+      responses:
+        "200":
+          description: Array fetched
+
+            // Add structure details later
+
+        "401":
+          description: Bad token
       tags:
         - "Item"
+        - "Web/Desktop app"
+        - "Mobile app"
 
   /stock/add:
     post:
       summary: Add items to stock
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          schema:
+            type: string
+          description: User token for authorization
+        - in: header
+          name: ProductID
+          required: true
+          schema:
+            type: string
+          description: ID of item added to stock
+        - in: header
+          name: Amount
+          required: true
+          schema:
+            type: integer
+          description: Amount of item getting added
+        - in: header
+          name: Location
+          required: true
+          schema:
+            type: string
+          description: Physical location of stock in the building
+      responses:
+        "200":
+          description: Stock added
+        "400":
+          description: Bad request
+        "401":
+          description: Bad token
       tags:
         - "Stock"
+        - "Mobile app"
 
   /stock/locate:
     get:
       summary: Retrieve physical location of items in stock
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          schema:
+            type: string
+          description: User token for authorization
+        - in: header
+          name: ProductID
+          required: true
+          schema:
+            type: string
+          description: ID of item to search
+      responses:
+        "200":
+          description: Search successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  location:
+                    type: string
+                    description: Location of searched item
+                  amount:
+                    type: integer
+                    description: Amount of item in location
+        "400":
+          description: Bad request
+        "401":
+          description: Bad token
       tags:
         - "Stock"
+        - "Mobile app"
 
   /stock/index:
     get:
       summary: Lists all available stock
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          schema:
+            type: string
+          description: Admin token for authorization
+      responses:
+        "200":
+          description: Array fetched
+
+            // Add structure details later
+
+        "401":
+          description: Bad token
       tags:
         - "Stock"
+        - "Web/Desktop app"
 
   /stock/modify:
-    post:
+    put:
       summary: Modifies existing stock
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          schema:
+            type: string
+          description: Admin token for authorization
+        - in: header
+          name: ID
+          required: true
+          schema:
+            type: integer
+          description: ID of modified stock
+        - in: header
+          name: ProductID
+          required: false
+          schema:
+            type: string
+          description: New item ID, if empty then it stays the same
+        - in: header
+          name: Amount
+          required: false
+          schema:
+            type: integer
+          description: New amount of item, if empty then it stays the same
+        - in: header
+          name: Location
+          required: false
+          schema:
+            type: string
+          description: New location of item, if empty then it stays the same
+      responses:
+        "200":
+          description: Stock modified
+        "400":
+          description: Bad request
+        "401":
+          description: Bad token
       tags:
         - "Stock"
+        - "Web/Desktop app"

@@ -10,21 +10,21 @@ Route::get('/', function () {
     return view('dockertest');
 });
 
-Route::get('/api/user/login', [UserController::class, 'login']);
-Route::get('/api/user/reset', [UserController::class, 'resetPassword']);
+Route::post('/api/user/login', [UserController::class, 'login']);
+Route::put('/api/user/reset', [UserController::class, 'resetPassword']);
 Route::get('/api/user/index', [UserController::class, 'index']);
-Route::get('/api/user/create', [UserController::class, 'create']);
-Route::get('/api/user/modify', [UserController::class, 'modify']);
+Route::post('/api/user/create', [UserController::class, 'create']);
+Route::put('/api/user/modify', [UserController::class, 'modify']);
 
-Route::get('/api/admin/login', [AdminController::class, 'login']);
-Route::get('/api/admin/reset', [AdminController::class, 'resetPassword']);
+Route::post('/api/admin/login', [AdminController::class, 'login']);
+Route::put('/api/admin/reset', [AdminController::class, 'resetPassword']);
 Route::get('/api/admin/notification', [AdminController::class, 'notification']);
 
-Route::get('/api/item/create', [ItemController::class, 'create']);
-Route::get('/api/item/modify', [ItemController::class, 'modify']);
+Route::post('/api/item/create', [ItemController::class, 'create']);
+Route::put('/api/item/modify', [ItemController::class, 'modify']);
 Route::get('/api/item/index', [ItemController::class, 'index']);
 
-Route::get('/api/stock/add', [StockController::class, 'add']);
+Route::post('/api/stock/add', [StockController::class, 'add']);
 Route::get('/api/stock/locate', [StockController::class, 'locate']);
 Route::get('/api/stock/index', [StockController::class, 'index']);
-Route::get('/api/stock/modify', [StockController::class, 'modify']);
+Route::put('/api/stock/modify', [StockController::class, 'modify']);
