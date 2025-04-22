@@ -47,11 +47,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  token:
+                  access_token:
                     type: string
                     description: Account token used for authorization
-        "401":
-          description: Bad login
+        "400":
+          description: Bad request
         "403":
           description: Account is not active
       tags:
@@ -92,7 +92,8 @@ paths:
           description: Array fetched
 
             // Add structure details later
-
+        "400":
+          description: Bad request
         "401":
           description: Bad token
       tags:
@@ -133,14 +134,8 @@ paths:
           schema:
             type: string
           description: User's surname
-        - in: header
-          name: Password
-          required: true
-          schema:
-            type: string
-          description: User's temporary password
       responses:
-        "200":
+        "201":
           description: User created
         "400":
           description: Bad request
@@ -161,7 +156,7 @@ paths:
             type: string
           description: Admin token for authorization
         - in: header
-          name: ID
+          name: UserId
           required: true
           schema:
             type: integer
@@ -190,6 +185,12 @@ paths:
           schema:
             type: string
           description: New surname of user, if empty then it stays the same
+        - in: header
+          name: AccountActive
+          required: false
+          schema:
+            type: boolean
+          description: Changes state of account, false=inactive, true=active
       responses:
         "200":
           description: User modified

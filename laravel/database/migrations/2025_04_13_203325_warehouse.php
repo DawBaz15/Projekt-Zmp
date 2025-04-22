@@ -32,6 +32,7 @@ return new class extends Migration
             $table->date('AccountDate');
             $table->boolean('AccountActive');
             $table->string('_token');
+            $table->string('Google2fa');
             $table->primary('ID');
             $table->unique('_token');
         });

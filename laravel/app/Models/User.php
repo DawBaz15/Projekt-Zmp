@@ -20,9 +20,11 @@ class User extends Model
         'AccountDate',
         'AccountActive',
         '_token',
+        'Google2fa',
     ];
     protected $hidden = [
         'Password',
         '_token',
+        'Google2fa',
     ];
 }

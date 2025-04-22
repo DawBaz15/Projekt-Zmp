@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use function PHPUnit\Framework\isEmpty;
+
+class RequestChecker {
+    public static function accountCreation(string $email, string $phone, string $name, string $surname) {
+        if (self::emailValidation($email)) {
+            if (self::phoneValidation($phone)) {
+                if (self::nameValidation($name)) {
+                    if (self::surnameValidation($surname)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public static function emailValidation(string $email) {
+        return filter_var($email, FILTER_VALIDATE_EMAIL);
+    }
+    public static function phoneValidation(string $phone) {
+        return strlen(preg_replace('/[^0-9]/', '', $phone)) == 9;
+    }
+    public static function nameValidation(string $name) {
+        return strlen($name) > 0;
+    }
+    public static function surnameValidation(string $surname) {
+        return strlen($surname) > 0;
+    }
+    public static function accountActiveValidation(int $accountActive) {
+        return ($accountActive == 0 || $accountActive == 1);
+    }
+}
