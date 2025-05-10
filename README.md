@@ -6,3 +6,6 @@ Aplikacja jest skonteneryzowana. Do uruchomienia przejdź do ścieżki aplikacji
 ```
 docker compose up -d
 ```
+
+# Dokumentacja OpenAPI
+[Dokumentacja OpenAPI projektu.](https://github.com/DawBaz15/Projekt-Zmp/blob/master/laravel/openapi.yaml)

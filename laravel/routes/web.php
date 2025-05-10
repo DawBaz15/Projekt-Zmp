@@ -6,10 +6,6 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\StockController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('dockertest');
-});
-
 Route::post('/api/user/login', [UserController::class, 'login']);
 Route::put('/api/user/reset', [UserController::class, 'resetPassword']);
 Route::get('/api/user/index', [UserController::class, 'index']);
@@ -17,6 +13,7 @@ Route::post('/api/user/create', [UserController::class, 'create']);
 Route::put('/api/user/modify', [UserController::class, 'modify']);
 
 Route::post('/api/admin/login', [AdminController::class, 'login']);
+Route::post('/api/admin/create', [AdminController::class, 'create']);
 Route::put('/api/admin/reset', [AdminController::class, 'resetPassword']);
 Route::get('/api/admin/notification', [AdminController::class, 'notification']);
 

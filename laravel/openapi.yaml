@@ -39,6 +39,12 @@ paths:
           schema:
             type: string
           description: Password given by user
+        - in: header
+          name: Google2fa
+          required: true
+          schema:
+            type: string
+          description: Google2fa token from the authenticator app
       responses:
         "200":
           description: Login successful
@@ -218,6 +224,12 @@ paths:
           schema:
             type: string
           description: Password given by user
+        - in: header
+          name: Google2fa
+          required: true
+          schema:
+            type: string
+          description: Google2fa token from the authenticator app
       responses:
         "200":
           description: Login successful
