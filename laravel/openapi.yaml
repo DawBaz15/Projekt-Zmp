@@ -204,6 +204,8 @@ paths:
           description: Bad request
         "401":
           description: Bad token
+        "404":
+          description: User not found
       tags:
         - "User"
         - "Web/Desktop app"
@@ -331,6 +333,8 @@ paths:
           description: Bad request
         "401":
           description: Bad token
+        "404":
+          description: Item not found
       tags:
         - "Item"
         - "Web/Desktop app"
@@ -372,7 +376,7 @@ paths:
           name: ProductID
           required: true
           schema:
-            type: string
+            type: integer
           description: ID of item added to stock
         - in: header
           name: Amount
@@ -393,6 +397,8 @@ paths:
           description: Bad request
         "401":
           description: Bad token
+        "404":
+          description: Item not found
       tags:
         - "Stock"
         - "Mobile app"
@@ -411,7 +417,7 @@ paths:
           name: ProductID
           required: true
           schema:
-            type: string
+            type: integer
           description: ID of item to search
       responses:
         "200":
@@ -477,7 +483,7 @@ paths:
           name: ProductID
           required: false
           schema:
-            type: string
+            type: integer
           description: New item ID, if empty then it stays the same
         - in: header
           name: Amount
@@ -498,6 +504,8 @@ paths:
           description: Bad request
         "401":
           description: Bad token
+        "404":
+          description: Stock not found
       tags:
         - "Stock"
         - "Web/Desktop app"

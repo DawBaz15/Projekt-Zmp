@@ -132,20 +132,26 @@ class UserController extends Controller {
             ], 400);
         }
 
+        if (!User::where('ID', $userId )->exists()) {
+            return response([
+                'message' => 'User not found'
+            ], 404);
+        }
+
         if (TokenChecker::getAdminID($token)) {
-            if (RequestChecker::emailValidation($email)) {
+            if (isset($email) && RequestChecker::emailValidation($email)) {
                 User::where("ID", $userId)->update(['Email'=>$email]);
             }
-            if (RequestChecker::phoneValidation($phone)) {
+            if (isset($phone) && RequestChecker::phoneValidation($phone)) {
                 User::where("ID", $userId)->update(['Phone'=>$phone]);
             }
-            if (RequestChecker::nameValidation($name)) {
+            if (isset($name) && RequestChecker::stringValidation($name)) {
                 User::where("ID", $userId)->update(['Name'=>$name]);
             }
-            if (RequestChecker::surnameValidation($surname)) {
+            if (isset($surname) && RequestChecker::stringValidation($surname)) {
                 User::where("ID", $userId)->update(['Surname'=>$surname]);
             }
-            if (RequestChecker::accountActiveValidation($accountActive)) {
+            if (isset($accountActive) && RequestChecker::accountActiveValidation($accountActive)) {
                 User::where("ID", $userId)->update(['AccountActive'=>$accountActive]);
             }
             return response([
