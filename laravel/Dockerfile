@@ -1,7 +1,6 @@
 FROM php:8.2-apache
 
 ENV ACCEPT_EULA=Y
-LABEL maintainer="er.avinashrathod@gmail.com"
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
