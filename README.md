@@ -12,7 +12,7 @@ cd laravel; composer install
 ```
 Jeśli routy nie ustawiły się automatycznie, wejdź w kontener warehouse-laravel > Exec i wpisz:
 ```
-service apache2 restart
+a2enmod rewrite; service apache2 restart
 ```
 
 # Dokumentacja OpenAPI
