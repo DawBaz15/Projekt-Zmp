@@ -26,25 +26,26 @@ paths:
   /user/login:
     post:
       summary: Returns a login token for user accounts
-      parameters:
-        - in: header
-          name: Email
-          required: true
-          schema:
-            type: string
-          description: Email given by user
-        - in: header
-          name: Password
-          required: true
-          schema:
-            type: string
-          description: Password given by user
-        - in: header
-          name: Google2fa
-          required: true
-          schema:
-            type: string
-          description: Google2fa token from the authenticator app
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - Email
+                - Password
+                - Google2fa
+              properties:
+                Email:
+                  type: string
+                  description: Email given by user
+                Password:
+                  type: string
+                  description: Password given by user
+                Google2fa:
+                  type: string
+                  description: Google2fa token from the authenticator app
       responses:
         "200":
           description: Login successful
@@ -67,13 +68,18 @@ paths:
   /user/reset:
     put:
       summary: Resets user's password
-      parameters:
-        - in: header
-          name: Token
-          required: true
-          schema:
-            type: string
-          description: User token for authorization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - Token
+              properties:
+                Token:
+                  type: string
+                  description: User token for authorization
       responses:
         "200":
           description: Reset initiated
@@ -86,18 +92,21 @@ paths:
   /user/index:
     get:
       summary: Fetch all users details
-      parameters:
-        - in: header
-          name: Token
-          required: true
-          schema:
-            type: string
-          description: Admin token for authorization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - Token
+              properties:
+                Token:
+                  type: string
+                  description: Admin token for authorization
       responses:
         "200":
           description: Array fetched
-
-            // Add structure details later
         "400":
           description: Bad request
         "401":
@@ -109,37 +118,34 @@ paths:
   /user/create:
     post:
       summary: Creates a new user
-      parameters:
-        - in: header
-          name: Token
-          required: true
-          schema:
-            type: string
-          description: Admin token for authorization
-        - in: header
-          name: Email
-          required: true
-          schema:
-            type: string
-          description: User's email
-        - in: header
-          name: Phone
-          required: true
-          schema:
-            type: string
-          description: User's phone number
-        - in: header
-          name: Name
-          required: true
-          schema:
-            type: string
-          description: User's name
-        - in: header
-          name: Surname
-          required: true
-          schema:
-            type: string
-          description: User's surname
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - Token
+                - Email
+                - Phone
+                - Name
+                - Surname
+              properties:
+                Token:
+                  type: string
+                  description: Admin token for authorization
+                Email:
+                  type: string
+                  description: User's email
+                Phone:
+                  type: string
+                  description: User's phone number
+                Name:
+                  type: string
+                  description: User's name
+                Surname:
+                  type: string
+                  description: User's surname
       responses:
         "201":
           description: User created
@@ -154,49 +160,37 @@ paths:
   /user/modify:
     put:
       summary: Modifies an existing user
-      parameters:
-        - in: header
-          name: Token
-          required: true
-          schema:
-            type: string
-          description: Admin token for authorization
-        - in: header
-          name: UserId
-          required: true
-          schema:
-            type: integer
-          description: ID of user to modify
-        - in: header
-          name: Email
-          required: false
-          schema:
-            type: string
-          description: New email of user, if empty then it stays the same
-        - in: header
-          name: Phone
-          required: false
-          schema:
-            type: string
-          description: New phone number of user, if empty then it stays the same
-        - in: header
-          name: Name
-          required: false
-          schema:
-            type: string
-          description: New name of user, if empty then it stays the same
-        - in: header
-          name: Surname
-          required: false
-          schema:
-            type: string
-          description: New surname of user, if empty then it stays the same
-        - in: header
-          name: AccountActive
-          required: false
-          schema:
-            type: boolean
-          description: Changes state of account, false=inactive, true=active
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - Token
+                - UserId
+              properties:
+                Token:
+                  type: string
+                  description: Admin token for authorization
+                UserId:
+                  type: integer
+                  description: ID of user to modify
+                Email:
+                  type: string
+                  description: New email of user, if empty it stays the same
+                Phone:
+                  type: string
+                  description: New phone of user, if empty it stays the same
+                Name:
+                  type: string
+                  description: New name of user, if empty it stays the same
+                Surname:
+                  type: string
+                  description: New surname of user, if empty it stays the same
+                AccountActive:
+                  type: boolean
+                  description: Changes state of account, false = inactive, true = active
       responses:
         "200":
           description: User modified
@@ -213,25 +207,26 @@ paths:
   /admin/login:
     post:
       summary: Returns a login token for admin accounts
-      parameters:
-        - in: header
-          name: Email
-          required: true
-          schema:
-            type: string
-          description: Email given by user
-        - in: header
-          name: Password
-          required: true
-          schema:
-            type: string
-          description: Password given by user
-        - in: header
-          name: Google2fa
-          required: true
-          schema:
-            type: string
-          description: Google2fa token from the authenticator app
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - Email
+                - Password
+                - Google2fa
+              properties:
+                Email:
+                  type: string
+                  description: Email given by user
+                Password:
+                  type: string
+                  description: Password given by user
+                Google2fa:
+                  type: string
+                  description: Google2fa token from the authenticator app
       responses:
         "200":
           description: Login successful
@@ -254,13 +249,18 @@ paths:
   /admin/reset:
     put:
       summary: Resets admin's password
-      parameters:
-        - in: header
-          name: Token
-          required: true
-          schema:
-            type: string
-          description: Admin token for authorization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - Token
+              properties:
+                Token:
+                  type: string
+                  description: Admin token for authorization
       responses:
         "200":
           description: Reset initiated
@@ -280,19 +280,22 @@ paths:
   /item/create:
     post:
       summary: Creates a new item
-      parameters:
-        - in: header
-          name: Token
-          required: true
-          schema:
-            type: string
-          description: Admin token for authorization
-        - in: header
-          name: Name
-          required: true
-          schema:
-            type: string
-          description: Name of new item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - Token
+                - Name
+              properties:
+                Token:
+                  type: string
+                  description: Admin token for authorization
+                Name:
+                  type: string
+                  description: Name of new item
       responses:
         "200":
           description: Item created
@@ -307,25 +310,26 @@ paths:
   /item/modify:
     put:
       summary: Modifies an existing item
-      parameters:
-        - in: header
-          name: Token
-          required: true
-          schema:
-            type: string
-          description: Admin token for authorization
-        - in: header
-          name: ID
-          required: true
-          schema:
-            type: integer
-          description: ID of modified item
-        - in: header
-          name: Name
-          required: false
-          schema:
-            type: string
-          description: New name for item, if empty then it stays the same
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - Token
+                - ID
+              properties:
+                Token:
+                  type: string
+                  description: Admin token for authorization
+                ID:
+                  type: integer
+                  description: ID of modified item
+                Name:
+                  type: string
+                  description: New name of item, if empty then it stays the same
+
       responses:
         "200":
           description: Item modified
@@ -342,19 +346,21 @@ paths:
   /item/index:
     get:
       summary: Lists all items
-      parameters:
-        - in: header
-          name: Token
-          required: true
-          schema:
-            type: string
-          description: User or admin token for authorization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - Token
+              properties:
+                Token:
+                  type: string
+                  description: User or admin token for authorization
       responses:
         "200":
           description: Array fetched
-
-            // Add structure details later
-
         "401":
           description: Bad token
       tags:
@@ -365,31 +371,30 @@ paths:
   /stock/add:
     post:
       summary: Add items to stock
-      parameters:
-        - in: header
-          name: Token
-          required: true
-          schema:
-            type: string
-          description: User token for authorization
-        - in: header
-          name: ProductID
-          required: true
-          schema:
-            type: integer
-          description: ID of item added to stock
-        - in: header
-          name: Amount
-          required: true
-          schema:
-            type: integer
-          description: Amount of item getting added
-        - in: header
-          name: Location
-          required: true
-          schema:
-            type: string
-          description: Physical location of stock in the building
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - Token
+                - ProductID
+                - Amount
+                - Location
+              properties:
+                Token:
+                  type: string
+                  description: User token for authorization
+                ProductID:
+                  type: integer
+                  description: ID of item added to stock
+                Amount:
+                  type: integer
+                  description: Amount of item getting added
+                Location:
+                  type: string
+                  description: Physical location of stock in the building
       responses:
         "200":
           description: Stock added
@@ -406,19 +411,22 @@ paths:
   /stock/locate:
     get:
       summary: Retrieve physical location of items in stock
-      parameters:
-        - in: header
-          name: Token
-          required: true
-          schema:
-            type: string
-          description: User token for authorization
-        - in: header
-          name: ProductID
-          required: true
-          schema:
-            type: integer
-          description: ID of item to search
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - Token
+                - ProductID
+              properties:
+                Token:
+                  type: string
+                  description: User token for authorization
+                ProductID:
+                  type: integer
+                  description: ID of item to search
       responses:
         "200":
           description: Search successful
@@ -444,19 +452,21 @@ paths:
   /stock/index:
     get:
       summary: Lists all available stock
-      parameters:
-        - in: header
-          name: Token
-          required: true
-          schema:
-            type: string
-          description: Admin token for authorization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - Token
+              properties:
+                Token:
+                  type: string
+                  description: Admin token for authorization
       responses:
         "200":
           description: Array fetched
-
-            // Add structure details later
-
         "401":
           description: Bad token
       tags:
@@ -466,37 +476,31 @@ paths:
   /stock/modify:
     put:
       summary: Modifies existing stock
-      parameters:
-        - in: header
-          name: Token
-          required: true
-          schema:
-            type: string
-          description: Admin token for authorization
-        - in: header
-          name: ID
-          required: true
-          schema:
-            type: integer
-          description: ID of modified stock
-        - in: header
-          name: ProductID
-          required: false
-          schema:
-            type: integer
-          description: New item ID, if empty then it stays the same
-        - in: header
-          name: Amount
-          required: false
-          schema:
-            type: integer
-          description: New amount of item, if empty then it stays the same
-        - in: header
-          name: Location
-          required: false
-          schema:
-            type: string
-          description: New location of item, if empty then it stays the same
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - Token
+                - ID
+              properties:
+                Token:
+                  type: string
+                  description: Admin token for authorization
+                ID:
+                  type: integer
+                  description: ID of modified stock
+                ProductID:
+                  type: integer
+                  description: New item ID, if empty then it stays the same
+                Amount:
+                  type: integer
+                  description: New amount of item, if empty then it stays the same
+                Location:
+                  type: string
+                  description: New location of item, if empty then it stays the same
       responses:
         "200":
           description: Stock modified

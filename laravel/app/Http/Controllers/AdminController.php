@@ -10,9 +10,9 @@ use PragmaRX\Google2FA\Google2FA;
 
 class AdminController extends Controller {
     public function login(Request $request) {
-        $email = $request->header('Email');
-        $password = $request->header('Password');
-        $auth = $request->header('Google2fa');
+        $email = $request->input('Email');
+        $password = $request->input('Password');
+        $auth = $request->input('Google2fa');
         $google2fa = new Google2FA();
         if (!isset($email,$password,$auth)) {
             return response([
@@ -50,11 +50,11 @@ class AdminController extends Controller {
     }
 
     public function create(Request $request) {
-        $token = $request->header('Token');
-        $email = $request->header('Email');
-        $phone = $request->header('Phone');
-        $name = $request->header('Name');
-        $surname = $request->header('Surname');
+        $token = $request->input('Token');
+        $email = $request->input('Email');
+        $phone = $request->input('Phone');
+        $name = $request->input('Name');
+        $surname = $request->input('Surname');
         if (!isset($token, $email, $phone, $name, $surname)) {
             return response([
                 'message' => 'Bad request'

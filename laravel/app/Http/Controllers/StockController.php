@@ -9,10 +9,10 @@ use function Laravel\Prompts\select;
 
 class StockController extends Controller {
     public function add(Request $request) {
-        $token = $request->header('Token');
-        $id = $request->header('ProductID');
-        $amount = $request->header('Amount');
-        $location = $request->header('Location');
+        $token = $request->input('Token');
+        $id = $request->input('ProductID');
+        $amount = $request->input('Amount');
+        $location = $request->input('Location');
         if (!isset($token,$id,$amount,$location)) {
             return response([
                 'message' => 'Bad request'
@@ -43,8 +43,8 @@ class StockController extends Controller {
     }
 
     public function locate(Request $request) {
-        $token = $request->header('Token');
-        $id = $request->header('ProductID');
+        $token = $request->input('Token');
+        $id = $request->input('ProductID');
         if (!isset($token,$id)) {
             return response([
                 'message' => 'Bad request'
@@ -53,7 +53,7 @@ class StockController extends Controller {
 
         if (!TokenChecker::getUserID($token)) {
             return response([
-                'message' => 'Bad token'
+                'message' => 'Bad token',
             ], 401);
         }
 
@@ -64,7 +64,7 @@ class StockController extends Controller {
     }
 
     public function index(Request $request) {
-        $token = $request->header('Token');
+        $token = $request->input('Token');
         if (!isset($token)) {
             return response([
                 'message' => 'Bad request'
@@ -84,11 +84,11 @@ class StockController extends Controller {
     }
 
     public function modify(Request $request) {
-        $token = $request->header('Token');
-        $id = $request->header('ID');
-        $productId = $request->header('ProductID');
-        $amount = $request->header('Amount');
-        $location = $request->header('Location');
+        $token = $request->input('Token');
+        $id = $request->input('ID');
+        $productId = $request->input('ProductID');
+        $amount = $request->input('Amount');
+        $location = $request->input('Location');
         if (!isset($token,$id)) {
             return response([
                 'message' => 'Bad request'

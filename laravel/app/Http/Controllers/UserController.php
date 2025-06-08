@@ -10,9 +10,9 @@ use PragmaRX\Google2FA\Google2FA;
 
 class UserController extends Controller {
     public function login(Request $request) {
-        $email = $request->header('Email');
-        $password = $request->header('Password');
-        $auth = $request->header('Google2fa');
+        $email = $request->input('Email');
+        $password = $request->input('Password');
+        $auth = $request->input('Google2fa');
         $google2fa = new Google2FA();
         if (!isset($email,$password,$auth)) {
             return response([
@@ -38,7 +38,7 @@ class UserController extends Controller {
         }
         if ($google2fa->verifyKey($user->Google2fa, $auth, 3)) {
             $token = Str::random(60);
-            $user::where('Email', $email)->update(['_token' => $token]);
+            $user::where('Email', $email)->update(['_token' => $token,'_tokenExpiry'=>date('Y/m/d H:i', time()+50400)]);
             return response([
                 'access_token' => $token,
                 'message' => 'Login successful'
@@ -56,10 +56,10 @@ class UserController extends Controller {
     }
 
     public function index(Request $request) {
-        $token = $request->header('Token');
+        $token = $request->input('Token');
         if (!isset($token)) {
             return response([
-                'message' => 'Bad request'
+                'message' => 'Bad request',
             ], 400);
         }
 
@@ -75,11 +75,11 @@ class UserController extends Controller {
     }
 
     public function create(Request $request) {
-        $token = $request->header('Token');
-        $email = $request->header('Email');
-        $phone = $request->header('Phone');
-        $name = $request->header('Name');
-        $surname = $request->header('Surname');
+        $token = $request->input('Token');
+        $email = $request->input('Email');
+        $phone = $request->input('Phone');
+        $name = $request->input('Name');
+        $surname = $request->input('Surname');
         if (!isset($token, $email, $phone, $name, $surname)) {
             return response([
                 'message' => 'Bad request'
@@ -119,13 +119,13 @@ class UserController extends Controller {
     }
 
     public function modify(Request $request) {
-        $token = $request->header('Token');
-        $userId = $request->header('UserId');
-        $email = $request->header('Email');
-        $phone = $request->header('Phone');
-        $name = $request->header('Name');
-        $surname = $request->header('Surname');
-        $accountActive = $request->header('AccountActive');
+        $token = $request->input('Token');
+        $userId = $request->input('UserId');
+        $email = $request->input('Email');
+        $phone = $request->input('Phone');
+        $name = $request->input('Name');
+        $surname = $request->input('Surname');
+        $accountActive = $request->input('AccountActive');
         if (!isset($token, $userId)) {
             return response([
                 'message' => 'Bad request'

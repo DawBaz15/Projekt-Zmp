@@ -19,6 +19,7 @@ return new class extends Migration
             $table->boolean('AccountActive');
             $table->string('_token');
             $table->string('Google2fa');
+            $table->datetime('_tokenExpiry');
             $table->primary('ID');
             $table->unique('_token');
         });
@@ -34,6 +35,7 @@ return new class extends Migration
             $table->boolean('AccountActive');
             $table->string('_token');
             $table->string('Google2fa');
+            $table->datetime('_tokenExpiry');
             $table->primary('ID');
             $table->unique('_token');
         });
