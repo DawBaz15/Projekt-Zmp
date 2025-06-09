@@ -68,18 +68,6 @@ paths:
   /user/reset:
     put:
       summary: Resets user's password
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - Token
-              properties:
-                Token:
-                  type: string
-                  description: User token for authorization
       responses:
         "200":
           description: Reset initiated
@@ -92,18 +80,11 @@ paths:
   /user/index:
     get:
       summary: Fetch all users details
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - Token
-              properties:
-                Token:
-                  type: string
-                  description: Admin token for authorization
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          description: Admin token used for authorization
       responses:
         "200":
           description: Array fetched
@@ -118,6 +99,11 @@ paths:
   /user/create:
     post:
       summary: Creates a new user
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          description: Admin token used for authorization
       requestBody:
         required: true
         content:
@@ -125,15 +111,11 @@ paths:
             schema:
               type: object
               required:
-                - Token
                 - Email
                 - Phone
                 - Name
                 - Surname
               properties:
-                Token:
-                  type: string
-                  description: Admin token for authorization
                 Email:
                   type: string
                   description: User's email
@@ -160,6 +142,11 @@ paths:
   /user/modify:
     put:
       summary: Modifies an existing user
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          description: Admin token used for authorization
       requestBody:
         required: true
         content:
@@ -167,12 +154,8 @@ paths:
             schema:
               type: object
               required:
-                - Token
                 - UserId
               properties:
-                Token:
-                  type: string
-                  description: Admin token for authorization
                 UserId:
                   type: integer
                   description: ID of user to modify
@@ -249,18 +232,6 @@ paths:
   /admin/reset:
     put:
       summary: Resets admin's password
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - Token
-              properties:
-                Token:
-                  type: string
-                  description: Admin token for authorization
       responses:
         "200":
           description: Reset initiated
@@ -280,6 +251,11 @@ paths:
   /item/create:
     post:
       summary: Creates a new item
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          description: Admin token used for authorization
       requestBody:
         required: true
         content:
@@ -287,12 +263,8 @@ paths:
             schema:
               type: object
               required:
-                - Token
                 - Name
               properties:
-                Token:
-                  type: string
-                  description: Admin token for authorization
                 Name:
                   type: string
                   description: Name of new item
@@ -310,6 +282,11 @@ paths:
   /item/modify:
     put:
       summary: Modifies an existing item
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          description: Admin token used for authorization
       requestBody:
         required: true
         content:
@@ -317,12 +294,8 @@ paths:
             schema:
               type: object
               required:
-                - Token
                 - ID
               properties:
-                Token:
-                  type: string
-                  description: Admin token for authorization
                 ID:
                   type: integer
                   description: ID of modified item
@@ -346,18 +319,11 @@ paths:
   /item/index:
     get:
       summary: Lists all items
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - Token
-              properties:
-                Token:
-                  type: string
-                  description: User or admin token for authorization
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          description: User or admin token used for authorization
       responses:
         "200":
           description: Array fetched
@@ -371,6 +337,11 @@ paths:
   /stock/add:
     post:
       summary: Add items to stock
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          description: User token used for authorization
       requestBody:
         required: true
         content:
@@ -378,14 +349,10 @@ paths:
             schema:
               type: object
               required:
-                - Token
                 - ProductID
                 - Amount
                 - Location
               properties:
-                Token:
-                  type: string
-                  description: User token for authorization
                 ProductID:
                   type: integer
                   description: ID of item added to stock
@@ -411,6 +378,11 @@ paths:
   /stock/locate:
     get:
       summary: Retrieve physical location of items in stock
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          description: User token used for authorization
       requestBody:
         required: true
         content:
@@ -418,12 +390,8 @@ paths:
             schema:
               type: object
               required:
-                - Token
                 - ProductID
               properties:
-                Token:
-                  type: string
-                  description: User token for authorization
                 ProductID:
                   type: integer
                   description: ID of item to search
@@ -452,18 +420,11 @@ paths:
   /stock/index:
     get:
       summary: Lists all available stock
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - Token
-              properties:
-                Token:
-                  type: string
-                  description: Admin token for authorization
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          description: Admin token used for authorization
       responses:
         "200":
           description: Array fetched
@@ -476,6 +437,11 @@ paths:
   /stock/modify:
     put:
       summary: Modifies existing stock
+      parameters:
+        - in: header
+          name: Token
+          required: true
+          description: Admin token used for authorization
       requestBody:
         required: true
         content:
@@ -483,12 +449,8 @@ paths:
             schema:
               type: object
               required:
-                - Token
                 - ID
               properties:
-                Token:
-                  type: string
-                  description: Admin token for authorization
                 ID:
                   type: integer
                   description: ID of modified stock

@@ -56,7 +56,7 @@ class UserController extends Controller {
     }
 
     public function index(Request $request) {
-        $token = $request->input('Token');
+        $token = $request->header('Token');
         if (!isset($token)) {
             return response([
                 'message' => 'Bad request',
@@ -75,7 +75,7 @@ class UserController extends Controller {
     }
 
     public function create(Request $request) {
-        $token = $request->input('Token');
+        $token = $request->header('Token');
         $email = $request->input('Email');
         $phone = $request->input('Phone');
         $name = $request->input('Name');
@@ -119,7 +119,7 @@ class UserController extends Controller {
     }
 
     public function modify(Request $request) {
-        $token = $request->input('Token');
+        $token = $request->header('Token');
         $userId = $request->input('UserId');
         $email = $request->input('Email');
         $phone = $request->input('Phone');

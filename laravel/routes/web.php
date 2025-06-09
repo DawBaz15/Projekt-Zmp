@@ -22,6 +22,6 @@ Route::put('/api/item/modify', [ItemController::class, 'modify']);
 Route::get('/api/item/index', [ItemController::class, 'index']);
 
 Route::post('/api/stock/add', [StockController::class, 'add']);
-Route::get('/api/stock/locate', [StockController::class, 'locate']);
+Route::post('/api/stock/locate', [StockController::class, 'locate']);
 Route::get('/api/stock/index', [StockController::class, 'index']);
 Route::put('/api/stock/modify', [StockController::class, 'modify']);

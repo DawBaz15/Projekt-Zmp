@@ -50,7 +50,7 @@ class AdminController extends Controller {
     }
 
     public function create(Request $request) {
-        $token = $request->input('Token');
+        $token = $request->header('Token');
         $email = $request->input('Email');
         $phone = $request->input('Phone');
         $name = $request->input('Name');

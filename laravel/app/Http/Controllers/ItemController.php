@@ -8,7 +8,7 @@ use function Laravel\Prompts\select;
 
 class ItemController extends Controller {
     public function create(Request $request) {
-        $token = $request->input('Token');
+        $token = $request->header('Token');
         $name = $request->input('Name');
         if (!isset($token, $name)) {
             return response([
@@ -36,7 +36,7 @@ class ItemController extends Controller {
     }
 
     public function modify(Request $request) {
-        $token = $request->input('Token');
+        $token = $request->header('Token');
         $id = $request->input('ID');
         $name = $request->input('Name');
         if (!isset($token, $id)) {
@@ -66,7 +66,7 @@ class ItemController extends Controller {
     }
 
     public function index(Request $request) {
-        $token = $request->input('Token');
+        $token = $request->header('Token');
         if (!isset($token)) {
             return response([
                 'message' => 'Bad request'

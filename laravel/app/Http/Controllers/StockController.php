@@ -9,7 +9,7 @@ use function Laravel\Prompts\select;
 
 class StockController extends Controller {
     public function add(Request $request) {
-        $token = $request->input('Token');
+        $token = $request->header('Token');
         $id = $request->input('ProductID');
         $amount = $request->input('Amount');
         $location = $request->input('Location');
@@ -43,7 +43,7 @@ class StockController extends Controller {
     }
 
     public function locate(Request $request) {
-        $token = $request->input('Token');
+        $token = $request->header('Token');
         $id = $request->input('ProductID');
         if (!isset($token,$id)) {
             return response([
@@ -64,7 +64,7 @@ class StockController extends Controller {
     }
 
     public function index(Request $request) {
-        $token = $request->input('Token');
+        $token = $request->header('Token');
         if (!isset($token)) {
             return response([
                 'message' => 'Bad request'
@@ -84,7 +84,7 @@ class StockController extends Controller {
     }
 
     public function modify(Request $request) {
-        $token = $request->input('Token');
+        $token = $request->header('Token');
         $id = $request->input('ID');
         $productId = $request->input('ProductID');
         $amount = $request->input('Amount');
